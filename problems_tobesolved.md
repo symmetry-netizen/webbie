@@ -1,4 +1,4 @@
-#problems and implementation
+# problems and implementation
 1. the geometric shape needs to be turned into a clock as discusses...
     such as the days->hour->minute->second can be visualized starting from the outermost layer to the inner layer without changing the form of the geometry
 2. for the mobile view the hamburger menu bar needs to be updated not in a good state since the prev. symmetry
