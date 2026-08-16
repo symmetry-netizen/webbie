@@ -1757,116 +1757,421 @@ figure {
     border-bottom: 1px solid var(--accent);
 }
 
-
 /* =========================================================
-   SPONSOR
+   SPONSORS
+   Continuous dark wine-red section
 ========================================================= */
 
-.sponsor {
-    position: absolute;
+.Sponser {
+    position: relative;
 
-    top: 0;
-    bottom: 0;
+    overflow: hidden;
 
-    /*
-       Two sponsors occupy the desktop screen.
-    */
-    width: 50%;
+    background: #641522;
+    color: var(--white);
+
+    padding-top: 95px;
+    padding-bottom: 0;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   SPONSOR HEADING
+========================================================= */
+
+.Sponser .container {
+    position: relative;
+    z-index: 3;
+}
+
+
+.sponsor-layout {
+    display: grid;
+
+    grid-template-columns: .95fr 1.15fr;
+
+    align-items: center;
+
+    gap: 80px;
+
+    padding-bottom: 95px;
+}
+
+
+/*
+   Text column: kicker, heading, then
+   description + "Know more" stacked below it.
+*/
+
+.sponsor-text {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sponsor-text .section-title {
+    margin-bottom: 26px;
+}
+
+
+.sponsor-text .section-side-note {
+    max-width: 460px;
+
+    margin: 0;
+}
+
+
+.sponsor-text .sponsor-more {
+    margin-left: 0;
+}
+
+
+/* =========================================================
+   SECTION KICKER
+========================================================= */
+
+.Sponser .section-kicker {
 
     display: flex;
     align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 30px;
+
+    color: var(--white);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    text-transform: uppercase;
+}
+
+
+/*
+   Small section number
+*/
+
+.Sponser .section-kicker::before {
+
+    content: "04";
+
+    color: #b63b2e;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: .16em;
+}
+
+
+/*
+   Hide an existing number if your HTML
+   already contains one.
+*/
+
+.Sponser .section-kicker span:first-child {
+    display: none;
+}
+
+
+/* =========================================================
+   LARGE EDITORIAL HEADING
+========================================================= */
+
+.Sponser .section-title {
+
+    max-width: 850px;
+
+    margin: 0;
+
+    font-family: var(--serif);
+
+    font-size: clamp(
+        4rem,
+        7vw,
+        7.5rem
+    );
+
+    font-weight: 400;
+
+    line-height: .88;
+
+    letter-spacing: -.045em;
+
+    color: var(--white);
+}
+
+
+.Sponser .section-title em {
+
+    color: var(--white);
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   RIGHT SIDE DESCRIPTION
+========================================================= */
+
+.Sponser .section-side-note {
+
+    max-width: 500px;
+
+    margin: 0;
+
+    color: rgba(255,255,255,.65);
+
+    font-size: 16px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   KNOW MORE
+========================================================= */
+
+.Sponser .sponsor-more {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 18px;
+
+    color: var(--white);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color .3s ease;
+}
+
+
+.Sponser .sponsor-more span {
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.Sponser .sponsor-more:hover {
+
+    color: #ffffff;
+}
+
+
+.Sponser .sponsor-more:hover span {
+
+    transform:
+        translate(4px, -4px);
+}
+
+
+/* =========================================================
+   SPONSOR SHOWCASE
+   Sits beside the heading/description column,
+   one enlarged logo visible at a time.
+========================================================= */
+
+.sponsor-showcase {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+}
+
+
+.Sponser .sponsor-grid {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 340px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 0;
+
+    border-radius: 4px;
+}
+
+
+/* =========================================================
+   SPONSOR SLIDE
+========================================================= */
+
+.Sponser .sponsor {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
     justify-content: center;
 
-    padding: 25px 45px;
+    padding: 40px;
 
     border: 0;
 
     opacity: 0;
 
-    transform: translateX(100%);
+    transform:
+        translateX(60px);
 
     transition:
-        transform 1s cubic-bezier(.65, 0, .35, 1),
-        opacity 1s ease;
+        transform .9s cubic-bezier(.65,0,.35,1),
+        opacity .9s ease;
 
     pointer-events: none;
 }
 
 
 /* =========================================================
-   SPONSOR POSITIONS
+   ACTIVE SPONSOR
 ========================================================= */
 
-.sponsor:nth-child(odd) {
-    left: 0;
-}
+.Sponser .sponsor.active {
 
-.sponsor:nth-child(even) {
-    left: 50%;
-}
-
-
-/* =========================================================
-   ACTIVE SPONSORS
-========================================================= */
-
-.sponsor.active {
     opacity: 1;
 
-    transform: translateX(0);
+    transform:
+        translateX(0);
 
     pointer-events: auto;
 }
 
 
 /* =========================================================
-   PREVIOUS SPONSORS
+   PREVIOUS SPONSOR
 ========================================================= */
 
-.sponsor.previous {
+.Sponser .sponsor.previous {
+
     opacity: 0;
 
-    transform: translateX(-100%);
+    transform:
+        translateX(-60px);
 }
 
 
 /* =========================================================
-   SPONSOR IMAGE
+   SPONSOR IMAGES
+   Enlarged so every mark reads clearly,
+   while staying inside the showcase frame.
 ========================================================= */
 
-.sponsor img {
+.Sponser .sponsor img {
+
     display: block;
 
     width: auto;
     height: auto;
 
-    /*
-       Larger logos for desktop.
-    */
-    max-width: 320px;
-    max-height: 135px;
+    max-width: 85%;
+    max-height: 260px;
 
     object-fit: contain;
 
-    /*
-       Keep original logo colours.
-    */
     filter: none;
 
     opacity: 1;
 
     transition:
-        transform .5s ease,
-        opacity .5s ease;
+        transform .45s ease;
 }
 
 
 /* =========================================================
-   HOVER
+   LOGO HOVER
 ========================================================= */
 
-.sponsor:hover img {
-    transform: scale(1.06);
+.Sponser .sponsor:hover img {
+
+    transform:
+        scale(1.05);
+}
+
+
+/* =========================================================
+   SLIDE COUNTER
+========================================================= */
+
+.sponsor-counter {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 18px;
+
+    color: rgba(255,255,255,.5);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: .12em;
+}
+
+
+.sponsor-counter span:first-child {
+
+    color: var(--white);
+}
+
+
+/* =========================================================
+   SUBTLE SECTION DETAIL
+========================================================= */
+
+.Sponser::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -250px;
+    bottom: -300px;
+
+    border: 1px solid rgba(255,255,255,.035);
+
+    border-radius: 50%;
+
+    pointer-events: none;
 }
 
 
@@ -1876,17 +2181,47 @@ figure {
 
 @media (max-width: 900px) {
 
-    .sponsor-grid {
-        height: 180px;
+    .Sponser {
+
+        padding-top: 70px;
     }
 
-    .sponsor {
+
+    .sponsor-layout {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+        padding-bottom: 70px;
+    }
+
+
+    .sponsor-text .section-side-note {
+
+        max-width: none;
+
+    }
+
+
+    .Sponser .sponsor-grid {
+
+        height: 260px;
+
+    }
+
+
+    .Sponser .sponsor {
+
         padding: 25px 30px;
+
     }
 
-    .sponsor img {
-        max-width: 250px;
-        max-height: 105px;
+
+    .Sponser .sponsor img {
+
+        max-height: 190px;
+
     }
 
 }
@@ -1894,31 +2229,142 @@ figure {
 
 /* =========================================================
    MOBILE
-   ---------------------------------------------------------
-   One sponsor at a time on small screens.
 ========================================================= */
 
 @media (max-width: 600px) {
 
-    .sponsor-grid {
-        height: 145px;
+    .Sponser {
+
+        padding-top: 60px;
+
     }
 
-    .sponsor {
+
+    /* Heading */
+
+    .Sponser .section-title {
+
+        font-size: clamp(
+            3.5rem,
+            15vw,
+            5rem
+        );
+
+        line-height: .9;
+
+    }
+
+
+    .Sponser .section-side-note {
+
+        font-size: 14px;
+
+        line-height: 1.6;
+
+    }
+
+
+    /* Sponsor area */
+
+    .Sponser .sponsor-grid {
+
+        height: 200px;
+
+    }
+
+
+    .Sponser .sponsor {
+
         width: 100%;
 
-        left: 0 !important;
-
         padding: 20px;
+
     }
 
-    .sponsor img {
-        max-width: 210px;
-        max-height: 85px;
+
+    .Sponser .sponsor img {
+
+        max-width: 90%;
+        max-height: 150px;
+
     }
 
 }
+/* Guidelines / section link */
 
+.section-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--white);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color var(--transition),
+        transform var(--transition);
+}
+
+.section-action-link span {
+    transition:
+        transform var(--transition);
+}
+
+.section-action-link:hover {
+    color: var(--accent);
+}
+
+.section-action-link:hover span {
+    transform: translate(3px, -3px);
+}
+
+
+/* Event card links */
+
+.event-card > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color var(--transition);
+}
+
+.event-card > a span {
+    transition:
+        transform var(--transition);
+}
+
+.event-card > a:hover {
+    color: var(--accent);
+}
+
+.event-card > a:hover span {
+    transform: translate(3px, -3px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .section-heading-actions {
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+}
 /* =========================================================
    CONTACT
 ========================================================= */
