@@ -265,7 +265,7 @@ const CONFIG = {
 
 };
 /* =========================================================
-   SPONSOR CAROUSEL — TWO AT A TIME
+   SPONSOR SLIDESHOW — ONE AT A TIME
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -278,13 +278,34 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!sponsors.length) return;
 
 
-    let currentPair = 0;
+    const currentLabel =
+        document.getElementById("sponsorCurrent");
 
-    const pairCount =
-        Math.ceil(sponsors.length / 2);
+    const totalLabel =
+        document.getElementById("sponsorTotal");
+
+    if (totalLabel) {
+
+        totalLabel.textContent =
+            String(sponsors.length).padStart(2, "0");
+
+    }
 
 
-    function showPair(pair) {
+    let currentIndex = 0;
+
+
+    function updateCounter(index) {
+
+        if (!currentLabel) return;
+
+        currentLabel.textContent =
+            String(index + 1).padStart(2, "0");
+
+    }
+
+
+    function showSlide(index) {
 
         sponsors.forEach(sponsor => {
 
@@ -295,111 +316,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
+        if (sponsors[index]) {
 
-        const first =
-            pair * 2;
-
-        const second =
-            first + 1;
-
-
-        /*
-           Current pair enters.
-        */
-
-        if (sponsors[first]) {
-
-            sponsors[first]
+            sponsors[index]
                 .classList.add("active");
 
         }
 
-        if (sponsors[second]) {
-
-            sponsors[second]
-                .classList.add("active");
-
-        }
+        updateCounter(index);
 
     }
 
 
     /*
-       Show first two immediately.
+       Show the first sponsor immediately.
     */
 
-    showPair(currentPair);
+    showSlide(currentIndex);
 
 
     /*
-       Change pair every 4 seconds.
+       Advance to the next sponsor every 4 seconds.
     */
 
     setInterval(() => {
 
-        const oldPair =
-            currentPair;
+        const oldIndex =
+            currentIndex;
 
-        currentPair =
-            (currentPair + 1) % pairCount;
+        currentIndex =
+            (currentIndex + 1) % sponsors.length;
 
 
         /*
-           Move current pair out.
+           Move current sponsor out.
         */
 
-        const oldFirst =
-            oldPair * 2;
+        if (sponsors[oldIndex]) {
 
-        const oldSecond =
-            oldFirst + 1;
-
-
-        if (sponsors[oldFirst]) {
-
-            sponsors[oldFirst]
+            sponsors[oldIndex]
                 .classList.remove("active");
 
-            sponsors[oldFirst]
-                .classList.add("previous");
-
-        }
-
-        if (sponsors[oldSecond]) {
-
-            sponsors[oldSecond]
-                .classList.remove("active");
-
-            sponsors[oldSecond]
+            sponsors[oldIndex]
                 .classList.add("previous");
 
         }
 
 
         /*
-           Bring next pair in.
+           Bring the next sponsor in.
         */
 
-        const newFirst =
-            currentPair * 2;
+        if (sponsors[currentIndex]) {
 
-        const newSecond =
-            newFirst + 1;
-
-
-        if (sponsors[newFirst]) {
-
-            sponsors[newFirst]
+            sponsors[currentIndex]
                 .classList.add("active");
 
         }
 
-        if (sponsors[newSecond]) {
-
-            sponsors[newSecond]
-                .classList.add("active");
-
-        }
+        updateCounter(currentIndex);
 
 
         /*
