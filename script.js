@@ -1989,3 +1989,170 @@ async function trackEvent(
     }
 
 }
+/* =========================================================
+   GALLERY CAROUSEL
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const track = document.getElementById("galleryTrack");
+    const slides = document.querySelectorAll(".gallery-slide");
+
+    const currentCounter =
+        document.getElementById("galleryCurrent");
+
+    const totalCounter =
+        document.getElementById("galleryTotal");
+
+
+    if (!track || !slides.length) return;
+
+
+    /* =====================================================
+       SETTINGS
+    ===================================================== */
+
+    let currentIndex = 0;
+
+    const slideDuration = 4500;
+
+    const transitionDuration = 900;
+
+
+    /* =====================================================
+       TOTAL COUNTER
+    ===================================================== */
+
+    totalCounter.textContent =
+        String(slides.length).padStart(2, "0");
+
+
+    /* =====================================================
+       INITIAL STATE
+    ===================================================== */
+
+    slides.forEach((slide, index) => {
+
+        slide.classList.remove("active");
+
+        slide.style.transform =
+            `translateX(${(index - currentIndex) * 100}%)`;
+
+    });
+
+
+    slides[currentIndex].classList.add("active");
+
+
+    /* =====================================================
+       UPDATE COUNTER
+    ===================================================== */
+
+    function updateCounter() {
+
+        currentCounter.textContent =
+            String(currentIndex + 1).padStart(2, "0");
+
+    }
+
+
+    /* =====================================================
+       MOVE GALLERY
+    ===================================================== */
+
+    function moveGallery() {
+
+        currentIndex++;
+
+        /*
+           Loop back to the first image
+           after the final image.
+        */
+
+        if (currentIndex >= slides.length) {
+            currentIndex = 0;
+        }
+
+
+        slides.forEach((slide, index) => {
+
+            const position =
+                index - currentIndex;
+
+            slide.style.transform =
+                `translateX(${position * 100}%)`;
+
+        });
+
+
+        /*
+           Active slide
+        */
+
+        slides.forEach(slide => {
+            slide.classList.remove("active");
+        });
+
+        slides[currentIndex]
+            .classList.add("active");
+
+
+        updateCounter();
+
+    }
+
+
+    /* =====================================================
+       START AUTOMATIC MOTION
+    ===================================================== */
+
+    let galleryTimer =
+        setInterval(
+            moveGallery,
+            slideDuration
+        );
+
+
+    /* =====================================================
+       PAUSE WHEN HOVERING
+    ===================================================== */
+
+    const galleryStage =
+        document.querySelector(".gallery-stage");
+
+
+    if (galleryStage) {
+
+        galleryStage.addEventListener(
+            "mouseenter",
+            () => {
+
+                clearInterval(galleryTimer);
+
+            }
+        );
+
+
+        galleryStage.addEventListener(
+            "mouseleave",
+            () => {
+
+                galleryTimer =
+                    setInterval(
+                        moveGallery,
+                        slideDuration
+                    );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIAL COUNTER
+    ===================================================== */
+
+    updateCounter();
+
+});
